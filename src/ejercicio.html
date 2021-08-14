@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <title>Drag and Drop</title>
+    <link rel="stylesheet" />
+    <style>
+      #cajasoltar {
+        float: left;
+        width: 500px;
+        height: 300px;
+        margin: 10px;
+        border: 1px solid #999999;
+      }
+      #cajaimagenes {
+        float: left;
+        width: 320px;
+        margin: 10px;
+        border: 1px solid #999999;
+      }
+      #cajaimagenes > img {
+        float: left;
+        padding: 5px;
+      }
+    </style>
+    <script>
+      function iniciar() {
+        origen1 = document.getElementById("imagen");
+        origen1.addEventListener("dragstart", arrastrado, false);
+        destino = document.getElementById("cajasoltar");
+        destino.addEventListener(
+          "dragenter",
+          function (e) {
+            e.preventDefault();
+          },
+          false
+        );
+        destino.addEventListener(
+          "dragover",
+          function (e) {
+            e.preventDefault();
+          },
+          false
+        );
+        destino.addEventListener("drop", soltado, false);
+      }
+      function arrastrado(e) {
+        var codigo = '<img src="' + origen1.getAttribute("src") + '" >';
+        e.dataTransfer.setData("Text", codigo);
+      }
+      function soltado(e) {
+        e.preventDefault();
+        destino.innerHTML = e.dataTransfer.getData("Text");
+      }
+      window.addEventListener("load", iniciar, false);
+    </script>
+  </head>
+  <body>
+    <section id="cajasoltar">
+      Arrastre y suelte la imagen aquí
+    </section>
+    <section id="cajaimagenes">
+      <img
+        id="imagen"
+        src="https://i.imgur.com/94n31ta.png"
+        alt="HTML5"
+        width="20%"
+        height="20%"
+      />
+    </section>
+  </body>
+</html>
